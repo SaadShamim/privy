@@ -2,7 +2,6 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { PrivyProvider } from '@privy-io/react-auth';
-import Providers from './providers';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -21,9 +20,17 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Privy Auth Starter</title>
         <meta name='description' content='Privy Auth Starter' />
       </Head>
-      <Providers>
+      {/* <PrivyProvider
+        appId={'clzila17c07u5h432nvndhqeq'}
+        config={{
+          loginMethods: ['telegram'],
+          embeddedWallets: {
+            createOnLogin: 'all-users',
+          },
+        }}
+      >
         <Component {...pageProps} />
-      </Providers>
+      </PrivyProvider> */}
     </>
   );
 }

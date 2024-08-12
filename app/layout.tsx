@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Head from 'next/head';
 import Script from 'next/script';
+import Providers from './providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <head>
         <Script src='https://telegram.org/js/telegram-web-app.js' strategy='beforeInteractive' />
       </head>
-      <body className={inter.className}>{children}</body>
+      <Providers>
+        <body className={inter.className}>{children}</body>
+      </Providers>
     </html>
   );
 }

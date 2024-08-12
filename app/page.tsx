@@ -17,24 +17,7 @@ interface UserData {
 
 export default function Home() {
   const [userData, setUserData] = useState<UserData | null>(null);
-  const {
-    ready,
-    authenticated,
-    user,
-    logout,
-    linkEmail,
-    linkWallet,
-    unlinkEmail,
-    linkPhone,
-    unlinkPhone,
-    unlinkWallet,
-    linkGoogle,
-    unlinkGoogle,
-    linkTwitter,
-    unlinkTwitter,
-    linkDiscord,
-    unlinkDiscord,
-  } = usePrivy();
+  const { ready, authenticated, user } = usePrivy();
 
   console.log(ready);
 
