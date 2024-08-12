@@ -7,7 +7,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <PrivyProvider
       appId='clzila17c07u5h432nvndhqeq'
       config={{
-        // Customize Privy's appearance in your app
+        loginMethods: ['telegram'],
         appearance: {
           theme: 'light',
           accentColor: '#676FFF',
@@ -15,7 +15,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         },
         // Create embedded wallets for users who don't have a wallet
         embeddedWallets: {
-          createOnLogin: 'users-without-wallets',
+          createOnLogin: 'all-users',
         },
       }}
     >
