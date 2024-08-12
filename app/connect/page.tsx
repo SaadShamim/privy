@@ -86,21 +86,9 @@ export default function Home() {
       )}
       <br />
       <br />
-      {wallet ? (
-        <button
-          onClick={() => {
-            unlinkWallet(wallet.address);
-          }}
-          className='text-sm border border-violet-600 hover:border-violet-700 py-2 px-4 rounded-md text-violet-600 hover:text-violet-700 disabled:border-gray-500 disabled:text-gray-500 hover:disabled:text-gray-500'
-          disabled={!canRemoveAccount}
-        >
-          Unlink wallet
-        </button>
-      ) : (
-        <button onClick={linkWallet} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
-          Connect wallet
-        </button>
-      )}
+      <button onClick={linkWallet} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
+        Connect wallet
+      </button>
     </main>
   );
 }
