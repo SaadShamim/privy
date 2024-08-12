@@ -47,7 +47,7 @@ export default function Home() {
 
   return (
     <main>
-      test
+      test1
       <ul>
         <li>Ready: {ready ? 'Yes' : 'No'}</li>
         <li>Authenticated: {authenticated ? 'Yes' : 'No'}</li>
