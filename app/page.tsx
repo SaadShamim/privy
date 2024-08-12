@@ -1,6 +1,6 @@
 'use client';
 
-import { usePrivy } from '@privy-io/react-auth';
+import { useLogin, usePrivy } from '@privy-io/react-auth';
 import WebApp from '@twa-dev/sdk';
 import { read } from 'fs';
 import Image from 'next/image';
@@ -45,6 +45,8 @@ export default function Home() {
     }
   }, []);
 
+  const { login } = useLogin();
+
   return (
     <main>
       test1
@@ -59,6 +61,7 @@ export default function Home() {
         <li>Language Code: {userData?.language_code}</li>
         <li>Is Premium: {userData?.is_premium ? 'Yes' : 'No'}</li>
       </ul>
+      <button onClick={login}>Log in</button>
     </main>
   );
 }
