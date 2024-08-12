@@ -1,4 +1,5 @@
 'use client';
+
 import { usePrivy } from '@privy-io/react-auth';
 import WebApp from '@twa-dev/sdk';
 import { read } from 'fs';
