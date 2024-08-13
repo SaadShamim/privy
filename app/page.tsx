@@ -129,16 +129,6 @@ export default function Home() {
       )}
       <br />
       <br />
-      <button
-        onClick={() => {
-          linkGoogle();
-        }}
-        className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white'
-      >
-        Link Google
-      </button>
-      <br />
-      <br />
       <button onClick={linkWallet} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
         Connect wallet
       </button>
