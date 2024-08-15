@@ -17,7 +17,7 @@ interface UserData {
 export default function Home() {
   const [userData, setUserData] = useState<UserData | null>(null);
 
-  const { ready, authenticated, user, linkFarcaster } = usePrivy();
+  const { ready, authenticated, user, linkGoogle } = usePrivy();
   const [launched, setLaunched] = useState(false);
 
   console.log(ready);
@@ -47,9 +47,9 @@ export default function Home() {
   useEffect(() => {
     if (!ready || !authenticated || launched) return;
 
-    linkFarcaster();
+    linkGoogle();
     setLaunched(true);
-  }, [linkFarcaster, ready, launched, authenticated]);
+  }, [linkGoogle, ready, launched, authenticated]);
 
   return (
     <main>
@@ -61,7 +61,7 @@ export default function Home() {
       </>
       Connect <br />
       <br />
-      <button onClick={linkFarcaster} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
+      <button onClick={linkGoogle} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
         Connect farcaster
       </button>
       <br />
