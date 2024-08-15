@@ -137,6 +137,11 @@ export default function Home() {
       <button onClick={linkFarcaster} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
         Connect Farcaster
       </button>
+      <br />
+      <br />
+      <button onClick={linkTwitter} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
+        Connect Twitter
+      </button>
     </main>
   );
 }
