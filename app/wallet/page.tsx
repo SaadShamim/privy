@@ -18,6 +18,7 @@ export default function Home() {
   const [userData, setUserData] = useState<UserData | null>(null);
 
   const { ready, authenticated, user, linkWallet } = usePrivy();
+  const [launched, setLaunched] = useState(false);
 
   console.log(ready);
 
@@ -44,10 +45,11 @@ export default function Home() {
   const { login } = useLogin();
 
   useEffect(() => {
-    if (!ready) return;
+    if (!ready || launched) return;
 
     linkWallet();
-  }, [linkWallet, ready]);
+    setLaunched(true);
+  }, [linkWallet, ready, launched]);
 
   return (
     <main>
