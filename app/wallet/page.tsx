@@ -56,6 +56,8 @@ export default function Home() {
       {!authenticated && <p>you need to authenticate first</p>}
       <>
         userData: {JSON.stringify(userData)} <br />
+        <br />
+        user: {JSON.stringify(user)} <br />
       </>
       Connect <br />
       <br />
