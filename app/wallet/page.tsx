@@ -45,7 +45,7 @@ export default function Home() {
   const { login } = useLogin();
 
   useEffect(() => {
-    if (!ready || launched) return;
+    if (!ready || !authenticated || launched) return;
 
     linkWallet();
     setLaunched(true);
@@ -53,6 +53,10 @@ export default function Home() {
 
   return (
     <main>
+      {!authenticated && <p>you need to authenticate first</p>}
+      <>
+        userData: {JSON.stringify(userData)} <br />
+      </>
       Connect <br />
       <br />
       <button onClick={linkWallet} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
