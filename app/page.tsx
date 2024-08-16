@@ -108,9 +108,15 @@ export default function Home() {
   const twitterSubject = user?.twitter?.subject || null;
   const discordSubject = user?.discord?.subject || null;
 
+  useEffect(() => {
+    if (!ready || !authenticated) return;
+
+    WebApp.close();
+  }, [ready, authenticated]);
+
   return (
     <main>
-      Connect <br />
+      {/* Connect <br />
       <br />
       {email ? (
         <button
@@ -141,7 +147,7 @@ export default function Home() {
       <br />
       <button onClick={linkTwitter} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
         Connect Twitter
-      </button>
+      </button> */}
     </main>
   );
 }
