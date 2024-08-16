@@ -116,6 +116,7 @@ export default function Home() {
 
   return (
     <main>
+      Authenticating
       {/* Connect <br />
       <br />
       {email ? (
