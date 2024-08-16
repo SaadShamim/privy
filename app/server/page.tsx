@@ -4,7 +4,7 @@ import { useLogin, usePrivy } from '@privy-io/react-auth';
 import WebApp from '@twa-dev/sdk';
 import { read } from 'fs';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface UserData {
   id: number;
@@ -17,7 +17,8 @@ interface UserData {
 
 export default function Home() {
   const [userData, setUserData] = useState<UserData | null>(null);
-  const { ready, authenticated, user } = usePrivy();
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const { ready, authenticated, user, getAccessToken } = usePrivy();
 
   console.log(ready);
 
@@ -30,15 +31,27 @@ export default function Home() {
 
   const numAccounts = user?.linkedAccounts?.length || 0;
 
+  const getAccessTokenData = useCallback(async () => {
+    try {
+      const token = await getAccessToken();
+      setAccessToken(token);
+    } catch (error) {
+      console.error('Failed to get access token', error);
+    }
+  }, [getAccessToken]);
+
   useEffect(() => {
     if (!ready || !authenticated) return;
 
     // WebApp.close();
-  }, [ready, authenticated]);
+    getAccessTokenData();
+  }, [ready, authenticated, getAccessTokenData]);
 
   return (
     <main>
       <p>{JSON.stringify(user)}</p>
+      <p>{JSON.stringify(userData)}</p>
+      <p>{accessToken}</p>
     </main>
   );
 }
