@@ -43,9 +43,12 @@ export default function Home() {
   const twitterSubject = user?.twitter?.subject || null;
   const discordSubject = user?.discord?.subject || null;
 
+  const { login } = usePrivy();
+
   return (
     <main>
       Connect <br />
+      <button onClick={() => login({ loginMethods: ['email', 'sms'] })}>Login with email and sms only</button> <br />
       <br />
       {email ? (
         <button
