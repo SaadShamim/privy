@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <main>
       Connect <br />
-      <button onClick={() => login({ loginMethods: ['email', 'sms'] })}>Login with email and sms only</button> <br />
+      <button onClick={() => login({ loginMethods: ['telegram'] })}>Login</button> <br />
       <br />
       {email ? (
         <button
