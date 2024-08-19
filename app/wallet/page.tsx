@@ -17,7 +17,7 @@ interface UserData {
 export default function Home() {
   const [userData, setUserData] = useState<UserData | null>(null);
 
-  const { ready, authenticated, user, linkWallet } = usePrivy();
+  const { ready, authenticated, user, linkWallet, login } = usePrivy();
   const [launched, setLaunched] = useState(false);
   const [loginLaunched, setLoginLaunched] = useState(false);
 
@@ -43,16 +43,16 @@ export default function Home() {
   const twitterSubject = user?.twitter?.subject || null;
   const discordSubject = user?.discord?.subject || null;
 
-  const { login } = useLogin();
+  // const { login } = useLogin();
 
   useEffect(() => {
     if (!ready || launched) return;
 
-    if (!authenticated || !loginLaunched) {
-      login({ loginMethods: ['telegram'] });
-      setLoginLaunched(true);
-      return;
-    }
+    // if (!authenticated || !loginLaunched) {
+    //   login({ loginMethods: ['telegram'] });
+    //   setLoginLaunched(true);
+    //   return;
+    // }
 
     linkWallet();
     setLaunched(true);
