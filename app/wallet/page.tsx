@@ -44,7 +44,7 @@ export default function Home() {
   useEffect(() => {
     if (!ready || !numAccounts) return;
 
-    if (initialNumAccounts > 1) {
+    if (initialNumAccounts >= 1) {
       setInitialNumAccounts(numAccounts);
     }
 
