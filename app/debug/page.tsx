@@ -18,6 +18,7 @@ interface UserData {
 interface ResponseData {
   message: string;
   authHeader: string;
+  user: any;
 }
 
 export default function Home() {
@@ -59,18 +60,18 @@ export default function Home() {
     getAccessTokenFn();
   }, [getAccessTokenFn]);
 
-  const makeRequest = async () => {
-    try {
-      const response = await axios.get('https://walrus-app-zidja.ondigitalocean.app/test', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log('Response:', response.data);
-    } catch (error) {
-      console.error('Error making request:', error);
-    }
-  };
+  //   const makeRequest = async () => {
+  //     try {
+  //       const response = await axios.get('https://walrus-app-zidja.ondigitalocean.app/test', {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //         },
+  //       });
+  //       console.log('Response:', response.data);
+  //     } catch (error) {
+  //       console.error('Error making request:', error);
+  //     }
+  //   };
 
   useEffect(() => {
     if (accessToken) {
@@ -127,9 +128,9 @@ export default function Home() {
           <p>Message: {responseData?.message}</p>
           <p>Authorization Header: {responseData?.authHeader}</p>
         </div>
-        <button onClick={makeRequest} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
+        {/* <button onClick={makeRequest} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
           Make Request
-        </button>
+        </button> */}
       </>
       {!authenticated && (
         <>
