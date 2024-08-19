@@ -57,6 +57,7 @@ export default function Home() {
   useEffect(() => {
     if (accessToken) {
       const makePostRequest = async () => {
+        console.log('making server request');
         try {
           const response = await axios.post(
             '/privy',
