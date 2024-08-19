@@ -20,6 +20,8 @@ export default function Home() {
   const { ready, authenticated, user, linkWallet, login } = usePrivy();
   const [launched, setLaunched] = useState(false);
   const [loginLaunched, setLoginLaunched] = useState(false);
+  const [initialNumAccounts, setInitialNumAccounts] = useState<number | null>(null);
+  const [linkSuccess, setLinkSuccess] = useState(false);
 
   useEffect(() => {
     if (WebApp.initDataUnsafe.user) {
@@ -40,6 +42,19 @@ export default function Home() {
   const discordSubject = user?.discord?.subject || null;
 
   useEffect(() => {
+    if (!ready || !numAccounts) return;
+
+    if (!initialNumAccounts) {
+      setInitialNumAccounts(numAccounts);
+    }
+
+    if (initialNumAccounts && numAccounts > initialNumAccounts) {
+      setLinkSuccess(true);
+      WebApp.close();
+    }
+  }, [numAccounts, initialNumAccounts, ready]);
+
+  useEffect(() => {
     if (!ready || launched) return;
 
     if (!authenticated) {
@@ -57,6 +72,7 @@ export default function Home() {
 
   return (
     <main>
+      {linkSuccess && <p>Account Linked Successfully</p>}
       {!authenticated && (
         <>
           <p>Please Authenticate to Continue</p>
@@ -68,7 +84,7 @@ export default function Home() {
         <br />
         user: {JSON.stringify(user)} <br />
       </> */}
-      {authenticated && (
+      {authenticated && !linkSuccess && (
         <>
           Connect Wallet <br />
           <br />
