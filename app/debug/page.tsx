@@ -61,7 +61,7 @@ export default function Home() {
 
   const makeRequest = async () => {
     try {
-      const response = await axios.get('https://walrus-app-zidja.ondigitalocean.app/pub', {
+      const response = await axios.get('https://walrus-app-zidja.ondigitalocean.app/test', {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
