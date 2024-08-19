@@ -48,9 +48,12 @@ export default function Home() {
   useEffect(() => {
     if (!ready || launched) return;
 
-    if (!authenticated || !loginLaunched) {
-      login({ loginMethods: ['telegram'] });
-      setLoginLaunched(true);
+    if (!authenticated) {
+      if (!loginLaunched) {
+        login({ loginMethods: ['telegram'] });
+        setLoginLaunched(true);
+      }
+
       return;
     }
 
