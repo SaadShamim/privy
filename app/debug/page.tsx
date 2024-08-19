@@ -15,6 +15,11 @@ interface UserData {
   is_premium?: boolean;
 }
 
+interface ResponseData {
+  message: string;
+  authHeader: string;
+}
+
 export default function Home() {
   const [userData, setUserData] = useState<UserData | null>(null);
 
@@ -24,7 +29,7 @@ export default function Home() {
   const [launched, setLaunched] = useState(false);
   const [loginLaunched, setLoginLaunched] = useState(false);
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [responseData, setResponseData] = useState(null);
+  const [responseData, setResponseData] = useState<ResponseData | null>(null);
 
   useEffect(() => {
     if (WebApp.initDataUnsafe.user) {
