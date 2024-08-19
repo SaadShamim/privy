@@ -72,6 +72,7 @@ export default function Home() {
 
   return (
     <main>
+      {numAccounts}
       {linkSuccess && <p>Account Linked Successfully</p>}
       {!authenticated && (
         <>
