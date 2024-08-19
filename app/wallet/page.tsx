@@ -21,16 +21,12 @@ export default function Home() {
   const [launched, setLaunched] = useState(false);
   const [loginLaunched, setLoginLaunched] = useState(false);
 
-  console.log(ready);
-
   useEffect(() => {
     if (WebApp.initDataUnsafe.user) {
       console.log(WebApp.initDataUnsafe.user);
       setUserData(WebApp.initDataUnsafe.user as UserData);
     }
   }, []);
-
-  //   const { login } = useLogin();
 
   const numAccounts = user?.linkedAccounts?.length || 0;
   const canRemoveAccount = numAccounts > 1;
@@ -42,8 +38,6 @@ export default function Home() {
   const googleSubject = user?.google?.subject || null;
   const twitterSubject = user?.twitter?.subject || null;
   const discordSubject = user?.discord?.subject || null;
-
-  // const { login } = useLogin();
 
   useEffect(() => {
     if (!ready || launched) return;
@@ -74,13 +68,17 @@ export default function Home() {
         <br />
         user: {JSON.stringify(user)} <br />
       </> */}
-      Connect Wallet <br />
-      <br />
-      <button onClick={linkWallet} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
-        Connect Wallet
-      </button>
-      <br />
-      <br />
+      {authenticated && (
+        <>
+          Connect Wallet <br />
+          <br />
+          <button onClick={linkWallet} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
+            Connect Wallet
+          </button>
+          <br />
+          <br />
+        </>
+      )}
     </main>
   );
 }
