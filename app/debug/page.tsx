@@ -4,6 +4,7 @@ import { useLogin, usePrivy } from '@privy-io/react-auth';
 import WebApp from '@twa-dev/sdk';
 
 import { useCallback, useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface UserData {
   id: number;
@@ -23,6 +24,7 @@ export default function Home() {
   const [launched, setLaunched] = useState(false);
   const [loginLaunched, setLoginLaunched] = useState(false);
   const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [responseData, setResponseData] = useState(null);
 
   useEffect(() => {
     if (WebApp.initDataUnsafe.user) {
@@ -52,6 +54,32 @@ export default function Home() {
     getAccessTokenFn();
   }, [getAccessTokenFn]);
 
+  useEffect(() => {
+    if (accessToken) {
+      const makePostRequest = async () => {
+        try {
+          const response = await axios.post(
+            '/privy',
+            {
+              /* Request payload can go here */
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+          console.log('Response:', response.data);
+          setResponseData(response.data);
+        } catch (error) {
+          console.error('Error making post request:', error);
+        }
+      };
+
+      makePostRequest();
+    }
+  }, [accessToken]);
+
   //   useEffect(() => {
   //     if (!ready || launched) return;
 
@@ -71,10 +99,18 @@ export default function Home() {
   return (
     <main>
       <>
-        <p>Access Token: {accessToken}</p>
-        userData: {JSON.stringify(userData)} <br />
+        <p>Client Access Token: {accessToken}</p>
         <br />
-        user: {JSON.stringify(user)} <br />
+        Client User Data: {JSON.stringify(user)} <br />
+        {responseData ? (
+          <div>
+            <h3>Server Response:</h3>
+            <p>Message: {responseData.message}</p>
+            <p>Authorization Header: {responseData.authHeader}</p>
+          </div>
+        ) : (
+          <p>Waiting for server response...</p>
+        )}
       </>
       {!authenticated && (
         <>
