@@ -38,7 +38,7 @@ export default function Home() {
       )}
       {authenticated && (
         <>
-          Connect <br />
+          Connect Twitter <br />
           <br />
           <button onClick={linkTwitter} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
             Connect Twitter
