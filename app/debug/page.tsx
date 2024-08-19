@@ -74,14 +74,14 @@ export default function Home() {
   //   };
 
   useEffect(() => {
-    if (accessToken) {
+    if (accessToken && user?.id) {
       const makePostRequest = async () => {
         console.log('making server request');
         try {
           const response = await axios.post(
             'https://walrus-app-zidja.ondigitalocean.app/privy',
             {
-              /* Request payload can go here */
+              userId: user.id,
             },
             {
               headers: {
@@ -98,7 +98,7 @@ export default function Home() {
 
       makePostRequest();
     }
-  }, [accessToken]);
+  }, [accessToken, user]);
 
   //   useEffect(() => {
   //     if (!ready || launched) return;
