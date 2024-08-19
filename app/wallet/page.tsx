@@ -19,6 +19,7 @@ export default function Home() {
 
   const { ready, authenticated, user, linkWallet } = usePrivy();
   const [launched, setLaunched] = useState(false);
+  const [loginLaunched, setLoginLaunched] = useState(false);
 
   console.log(ready);
 
@@ -47,14 +48,15 @@ export default function Home() {
   useEffect(() => {
     if (!ready || launched) return;
 
-    // if (!authenticated) {
-    //   login({ loginMethods: ['telegram'] });
-    //   return;
-    // }
+    if (!authenticated || !loginLaunched) {
+      login({ loginMethods: ['telegram'] });
+      setLoginLaunched(true);
+      return;
+    }
 
     linkWallet();
     setLaunched(true);
-  }, [linkWallet, ready, launched, authenticated, login]);
+  }, [linkWallet, ready, launched, authenticated, login, loginLaunched]);
 
   return (
     <main>
