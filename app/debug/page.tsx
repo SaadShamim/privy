@@ -65,7 +65,7 @@ export default function Home() {
         console.log('making server request');
         try {
           const response = await axios.post(
-            '/privy',
+            'https://walrus-app-zidja.ondigitalocean.app/privy',
             {
               /* Request payload can go here */
             },
