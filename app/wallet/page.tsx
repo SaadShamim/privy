@@ -47,10 +47,10 @@ export default function Home() {
   useEffect(() => {
     if (!ready || launched) return;
 
-    if (!authenticated) {
-      login({ loginMethods: ['telegram'] });
-      return;
-    }
+    // if (!authenticated) {
+    //   login({ loginMethods: ['telegram'] });
+    //   return;
+    // }
 
     linkWallet();
     setLaunched(true);
