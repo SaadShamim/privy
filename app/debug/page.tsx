@@ -103,15 +103,11 @@ export default function Home() {
         <p>Client Access Token: {accessToken}</p>
         <br />
         Client User Data: {JSON.stringify(user)} <br />
-        {responseData ? (
-          <div>
-            <h3>Server Response:</h3>
-            <p>Message: {responseData.message}</p>
-            <p>Authorization Header: {responseData.authHeader}</p>
-          </div>
-        ) : (
-          <p>Waiting for server response...</p>
-        )}
+        <div>
+          <h3>Server Response:</h3>
+          <p>Message: {responseData?.message}</p>
+          <p>Authorization Header: {responseData?.authHeader}</p>
+        </div>
       </>
       {!authenticated && (
         <>
