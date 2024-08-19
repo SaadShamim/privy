@@ -45,24 +45,34 @@ export default function Home() {
   const { login } = useLogin();
 
   useEffect(() => {
-    if (!ready || !authenticated || launched) return;
+    if (!ready || launched) return;
+
+    if (!authenticated) {
+      login({ loginMethods: ['telegram'] });
+      return;
+    }
 
     linkWallet();
     setLaunched(true);
-  }, [linkWallet, ready, launched, authenticated]);
+  }, [linkWallet, ready, launched, authenticated, login]);
 
   return (
     <main>
-      {!authenticated && <p>you need to authenticate first</p>}
-      <>
+      {!authenticated && (
+        <>
+          <p>Please Authenticate to Continue</p>
+          <button onClick={() => login({ loginMethods: ['telegram'] })}>Login</button> <br />
+        </>
+      )}
+      {/* <>
         userData: {JSON.stringify(userData)} <br />
         <br />
         user: {JSON.stringify(user)} <br />
-      </>
-      Connect <br />
+      </> */}
+      Connect Wallet <br />
       <br />
       <button onClick={linkWallet} className='text-sm bg-violet-600 hover:bg-violet-700 py-2 px-4 rounded-md text-white border-none'>
-        Connect wallet
+        Connect Wallet
       </button>
       <br />
       <br />
