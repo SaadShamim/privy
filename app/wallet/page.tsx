@@ -20,7 +20,7 @@ export default function Home() {
   const { ready, authenticated, user, linkWallet, login } = usePrivy();
   const [launched, setLaunched] = useState(false);
   const [loginLaunched, setLoginLaunched] = useState(false);
-  const [initialNumAccounts, setInitialNumAccounts] = useState<number>(0);
+  const [initialNumAccounts, setInitialNumAccounts] = useState<null | number>(null);
   const [linkSuccess, setLinkSuccess] = useState(false);
 
   useEffect(() => {
@@ -44,15 +44,23 @@ export default function Home() {
   useEffect(() => {
     if (!ready || !numAccounts) return;
 
-    if (initialNumAccounts >= 1) {
-      setInitialNumAccounts(numAccounts);
+    if (initialNumAccounts !== null) {
+      return;
     }
 
-    if (initialNumAccounts > 1 && numAccounts > initialNumAccounts) {
-      setLinkSuccess(true);
-      WebApp.close();
+    if (numAccounts >= 1) {
+      setInitialNumAccounts(numAccounts);
     }
   }, [numAccounts, initialNumAccounts, ready]);
+
+  useEffect(() => {
+    if (!initialNumAccounts || !numAccounts) return;
+
+    if (numAccounts > initialNumAccounts) {
+      setLinkSuccess(true);
+      window.close();
+    }
+  }, [initialNumAccounts, numAccounts]);
 
   useEffect(() => {
     if (!ready || launched) return;
