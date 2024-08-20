@@ -80,7 +80,7 @@ export default function Home() {
 
   return (
     <main>
-      {numAccounts}
+      {/* {numAccounts} */}
       {linkSuccess && <p>Account Linked Successfully</p>}
       {!authenticated && (
         <>
