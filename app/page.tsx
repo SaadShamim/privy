@@ -132,6 +132,7 @@ export default function Home() {
   return (
     <main>
       Creating Account
+      <button onClick={upsertUser}>upsert</button>
       {/* Connect <br />
       <br />
       {email ? (
