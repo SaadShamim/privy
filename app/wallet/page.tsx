@@ -88,8 +88,6 @@ export default function Home() {
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error making post request:', error);
-    } finally {
-      // window.close();
     }
   }, [user]);
 
