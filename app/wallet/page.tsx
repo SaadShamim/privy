@@ -92,7 +92,7 @@ export default function Home() {
         },
         {
           headers: {
-            Authorization: `Bearer ${'accessToken'}`,
+            Authorization: `Bearer accessToken`,
           },
         }
       );
