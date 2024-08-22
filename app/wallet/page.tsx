@@ -79,12 +79,13 @@ export default function Home() {
   }, [linkWallet, ready, launched, authenticated, login, loginLaunched]);
 
   const upsertUser = useCallback(async () => {
-    if (!user) return;
+    if (!user?.id) return;
 
     try {
       const response1 = await axios.get('https://walrus-app-zidja.ondigitalocean.app/test');
       console.log('Response:', response1.data);
 
+      console.log(user?.id);
       const response = await axios.post(
         'https://walrus-app-zidja.ondigitalocean.app/user',
         {
