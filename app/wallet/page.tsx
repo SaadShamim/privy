@@ -99,6 +99,7 @@ export default function Home() {
 
   return (
     <main>
+      <button onClick={upsertUser}>upsert</button>
       {/* {numAccounts} */}
       {linkSuccess && <p>Account Linked Successfully</p>}
       {!authenticated && (
