@@ -85,9 +85,17 @@ export default function Home() {
       const response1 = await axios.get('https://walrus-app-zidja.ondigitalocean.app/test');
       console.log('Response:', response1.data);
 
-      const response = await axios.post('https://walrus-app-zidja.ondigitalocean.app/user', {
-        userId: user?.id,
-      });
+      const response = await axios.post(
+        'https://walrus-app-zidja.ondigitalocean.app/user',
+        {
+          userId: user?.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${'accessToken'}`,
+          },
+        }
+      );
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error making post request:', error);
