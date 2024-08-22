@@ -82,6 +82,9 @@ export default function Home() {
     if (!user) return;
 
     try {
+      const response1 = await axios.get('https://walrus-app-zidja.ondigitalocean.app/test');
+      console.log('Response:', response1.data);
+
       const response = await axios.post('https://walrus-app-zidja.ondigitalocean.app/user', {
         userId: user?.id,
       });
