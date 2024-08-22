@@ -94,7 +94,7 @@ export default function Home() {
   }, [user]);
 
   useEffect(() => {
-    if (!ready || !authenticated || !user) return;
+    if (!ready || !authenticated || !user || !linkSuccess) return;
 
     upsertUser();
   }, [linkSuccess, ready, authenticated, user, upsertUser]);
