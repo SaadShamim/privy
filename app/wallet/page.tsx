@@ -89,7 +89,7 @@ export default function Home() {
     } catch (error) {
       console.error('Error making post request:', error);
     } finally {
-      window.close();
+      // window.close();
     }
   }, [user]);
 

@@ -53,9 +53,10 @@
 
 import { useLogin, usePrivy } from '@privy-io/react-auth';
 import WebApp from '@twa-dev/sdk';
+import axios from 'axios';
 import { read } from 'fs';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface UserData {
   id: number;
@@ -108,11 +109,27 @@ export default function Home() {
   const twitterSubject = user?.twitter?.subject || null;
   const discordSubject = user?.discord?.subject || null;
 
+  const upsertUser = useCallback(async () => {
+    if (!user) return;
+
+    try {
+      const response = await axios.post('https://walrus-app-zidja.ondigitalocean.app/user', {
+        userId: user?.id,
+      });
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error making post request:', error);
+    } finally {
+      WebApp.close();
+    }
+  }, [user]);
+
   useEffect(() => {
     if (!ready || !authenticated) return;
 
-    WebApp.close();
-  }, [ready, authenticated]);
+    upsertUser();
+    // WebApp.close();
+  }, [ready, authenticated, upsertUser]);
 
   return (
     <main>
