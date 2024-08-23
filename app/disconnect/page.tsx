@@ -6,7 +6,7 @@ import axios from 'axios';
 import { read } from 'fs';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface UserData {
   id: number;
@@ -17,8 +17,9 @@ interface UserData {
   is_premium?: boolean;
 }
 
-export default function Home() {
+export default function Disconnect() {
   const router = useRouter();
+  const searchParams = useSearchParams(); // Use useSearchParams to access query parameters
 
   const [userData, setUserData] = useState<UserData | null>(null);
   const { ready, authenticated, user } = usePrivy();
@@ -43,12 +44,11 @@ export default function Home() {
 
   useEffect(() => {
     // Extract the type and any other query parameters from the URL
-    const type = router.query.type as string;
-    const address = router.query.address as string;
-    const usernameOrId = router.query.usernameOrId as string;
-
+    const type = searchParams.get('type') as string;
+    const address = searchParams.get('address') as string;
+    const usernameOrId = searchParams.get('usernameOrId') as string;
     // Debugging logs
-    console.log('Query parameters:', router.query);
+
     console.log('Extracted type:', type);
     console.log('Extracted address:', address);
     console.log('Extracted usernameOrId:', usernameOrId);
@@ -84,7 +84,7 @@ export default function Home() {
         }
       }
     }
-  }, [router.query, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord]);
+  }, [searchParams, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord]);
 
   return <main>Disconnect</main>;
 }
