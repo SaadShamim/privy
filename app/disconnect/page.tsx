@@ -5,7 +5,7 @@ import WebApp from '@twa-dev/sdk';
 import axios from 'axios';
 import { read } from 'fs';
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 interface UserData {
@@ -86,5 +86,9 @@ export default function Disconnect() {
     }
   }, [searchParams, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord]);
 
-  return <main>Disconnect</main>;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <main>Disconnect</main>
+    </Suspense>
+  );
 }
