@@ -9,40 +9,44 @@ const DisconnectClient = () => {
   const type = searchParams.get('type');
   const address = searchParams.get('address');
 
-  const [userData, setUserData] = useState(null);
-  const { unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord } = usePrivy();
+  const { ready, authenticated, user, unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord } = usePrivy();
 
-  //   useEffect(() => {
-  //     const type = searchParams.get('type');
-  //     const address = searchParams.get('address');
-  //     const usernameOrId = searchParams.get('usernameOrId');
+  useEffect(() => {
+    const type = searchParams.get('type');
+    const address = searchParams.get('address');
+    const usernameOrId = searchParams.get('usernameOrId');
 
-  //     if (type) {
-  //       if (type === 'wallet' && address) {
-  //         unlinkWallet(address);
-  //       } else if (usernameOrId) {
-  //         switch (type) {
-  //           case 'email':
-  //             unlinkEmail(usernameOrId);
-  //             break;
-  //           case 'phone':
-  //             unlinkPhone(usernameOrId);
-  //             break;
-  //           case 'google':
-  //             unlinkGoogle(usernameOrId);
-  //             break;
-  //           case 'twitter':
-  //             unlinkTwitter(usernameOrId);
-  //             break;
-  //           case 'discord':
-  //             unlinkDiscord(usernameOrId);
-  //             break;
-  //           default:
-  //             console.log(`No action for type: ${type}`);
-  //         }
-  //       }
-  //     }
-  //   }, [searchParams, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord]);
+    if (!user) {
+      console.log('No user');
+      return;
+    }
+
+    if (type) {
+      if (type === 'wallet' && address) {
+        unlinkWallet(address);
+      } else if (usernameOrId) {
+        switch (type) {
+          case 'email':
+            unlinkEmail(usernameOrId);
+            break;
+          case 'phone':
+            unlinkPhone(usernameOrId);
+            break;
+          case 'google':
+            unlinkGoogle(usernameOrId);
+            break;
+          case 'twitter':
+            unlinkTwitter(usernameOrId);
+            break;
+          case 'discord':
+            unlinkDiscord(usernameOrId);
+            break;
+          default:
+            console.log(`No action for type: ${type}`);
+        }
+      }
+    }
+  }, [user, searchParams, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord]);
 
   return (
     <div>
