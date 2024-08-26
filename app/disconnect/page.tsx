@@ -11,8 +11,19 @@ const DisconnectClient = () => {
   const type = searchParams.get('type');
   const address = searchParams.get('address');
   const [unlinked, setUnlinked] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   const { ready, authenticated, user, unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord } = usePrivy();
+
+  useEffect(() => {
+    setIsClient(true); // This ensures the code runs only on the client side
+  }, []);
+
+  const closeWindow = () => {
+    if (isClient) {
+      window.close();
+    }
+  };
 
   const upsertUser = useCallback(async () => {
     if (!user) return;
@@ -42,6 +53,7 @@ const DisconnectClient = () => {
           //   window.close();
           // }
 
+          closeWindow();
           console.log('setUnlinked');
           await upsertUser();
           setUnlinked(true);
@@ -69,7 +81,7 @@ const DisconnectClient = () => {
         }
       }
     },
-    [unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, address, upsertUser]
+    [unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, address, upsertUser, closeWindow]
   );
 
   useEffect(() => {
