@@ -22,9 +22,12 @@ const DisconnectClient = () => {
           const data = await unlinkWallet(address);
           console.log('data');
           console.log(data);
-          setUnlinked(true);
+
           WebApp.close();
           window.close();
+
+          console.log('setUnlinked');
+          setUnlinked(true);
         } else if (usernameOrId) {
           switch (type) {
             case 'email':
@@ -65,6 +68,7 @@ const DisconnectClient = () => {
 
   return (
     <>
+      {unlinked}
       {unlinked && <div>Successfully unlinked</div>}
       <div>Type: {type}</div>
       <div>Address: {address}</div>
