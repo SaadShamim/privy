@@ -3,6 +3,7 @@
 import { usePrivy } from '@privy-io/react-auth';
 import { useEffect, useState, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
+import WebApp from '@twa-dev/sdk';
 
 const DisconnectClient = () => {
   const searchParams = useSearchParams();
@@ -17,14 +18,15 @@ const DisconnectClient = () => {
       if (type) {
         if (type === 'wallet' && address) {
           console.log('unlinkWallet');
+          unlinkEmail(usernameOrId);
           const data = await unlinkWallet(address);
           console.log('data');
           console.log(data);
           setUnlinked(true);
+          WebApp.close();
         } else if (usernameOrId) {
           switch (type) {
             case 'email':
-              unlinkEmail(usernameOrId);
               break;
             case 'phone':
               unlinkPhone(usernameOrId);
