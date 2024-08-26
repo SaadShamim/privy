@@ -4,6 +4,7 @@ import { usePrivy } from '@privy-io/react-auth';
 import { useEffect, useState, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 // import WebApp from '@twa-dev/sdk';
+import axios from 'axios';
 
 const DisconnectClient = () => {
   const searchParams = useSearchParams();
@@ -12,6 +13,19 @@ const DisconnectClient = () => {
   const [unlinked, setUnlinked] = useState(false);
 
   const { ready, authenticated, user, unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord } = usePrivy();
+
+  const upsertUser = useCallback(async () => {
+    if (!user) return;
+
+    try {
+      const response = await axios.post('https://walrus-app-zidja.ondigitalocean.app/user', {
+        userId: user?.id,
+      });
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error making post request:', error);
+    }
+  }, [user]);
 
   const unlinkedAcct = useCallback(
     async (type: any, usernameOrId: any) => {
@@ -29,6 +43,7 @@ const DisconnectClient = () => {
           // }
 
           console.log('setUnlinked');
+          await upsertUser();
           setUnlinked(true);
         } else if (usernameOrId) {
           switch (type) {
@@ -52,7 +67,7 @@ const DisconnectClient = () => {
         }
       }
     },
-    [unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, address]
+    [unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, address, upsertUser]
   );
 
   useEffect(() => {
