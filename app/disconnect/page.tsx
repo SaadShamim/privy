@@ -8,6 +8,7 @@ const DisconnectClient = () => {
   const searchParams = useSearchParams();
   const type = searchParams.get('type');
   const address = searchParams.get('address');
+  const [unlinked, setUnlinked] = useState(false);
 
   const { ready, authenticated, user, unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord } = usePrivy();
 
@@ -23,7 +24,11 @@ const DisconnectClient = () => {
 
     if (type) {
       if (type === 'wallet' && address) {
-        unlinkWallet(address);
+        console.log('unlinkWallet');
+        const data = unlinkWallet(address);
+        console.log('data');
+        console.log(data);
+        setUnlinked(true);
       } else if (usernameOrId) {
         switch (type) {
           case 'email':
@@ -49,10 +54,10 @@ const DisconnectClient = () => {
   }, [user, searchParams, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord]);
 
   return (
-    <div>
-      <p>Type: {type}</p>
-      <p>Address: {address}</p>
-    </div>
+    <>
+      <div>Type: {type}</div>
+      <div>Address: {address}</div>
+    </>
   );
 };
 
