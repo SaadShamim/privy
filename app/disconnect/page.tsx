@@ -55,7 +55,7 @@ const DisconnectClient = () => {
             case 'google':
               unlinkGoogle(usernameOrId);
               break;
-            case 'twitter':
+            case 'twitter' || 'twitteroauth':
               unlinkTwitter(usernameOrId);
               break;
             case 'discord':
