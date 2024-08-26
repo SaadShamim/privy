@@ -3,7 +3,7 @@
 import { usePrivy } from '@privy-io/react-auth';
 import { useEffect, useState, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import WebApp from '@twa-dev/sdk';
+// import WebApp from '@twa-dev/sdk';
 
 const DisconnectClient = () => {
   const searchParams = useSearchParams();
@@ -23,7 +23,7 @@ const DisconnectClient = () => {
           console.log('data');
           console.log(data);
 
-          WebApp.close();
+          // WebApp.close();
           // if (typeof window !== 'undefined') {
           //   window.close();
           // }
