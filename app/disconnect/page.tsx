@@ -1,7 +1,7 @@
 'use client';
 
 import { usePrivy } from '@privy-io/react-auth';
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 const DisconnectClient = () => {
@@ -11,6 +11,41 @@ const DisconnectClient = () => {
   const [unlinked, setUnlinked] = useState(false);
 
   const { ready, authenticated, user, unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord } = usePrivy();
+
+  const unlinkedAcct = useCallback(
+    async (type: any, usernameOrId: any) => {
+      if (type) {
+        if (type === 'wallet' && address) {
+          console.log('unlinkWallet');
+          const data = await unlinkWallet(address);
+          console.log('data');
+          console.log(data);
+          setUnlinked(true);
+        } else if (usernameOrId) {
+          switch (type) {
+            case 'email':
+              unlinkEmail(usernameOrId);
+              break;
+            case 'phone':
+              unlinkPhone(usernameOrId);
+              break;
+            case 'google':
+              unlinkGoogle(usernameOrId);
+              break;
+            case 'twitter':
+              unlinkTwitter(usernameOrId);
+              break;
+            case 'discord':
+              unlinkDiscord(usernameOrId);
+              break;
+            default:
+              console.log(`No action for type: ${type}`);
+          }
+        }
+      }
+    },
+    [unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, address]
+  );
 
   useEffect(() => {
     const type = searchParams.get('type');
@@ -22,36 +57,8 @@ const DisconnectClient = () => {
       return;
     }
 
-    if (type) {
-      if (type === 'wallet' && address) {
-        console.log('unlinkWallet');
-        const data = unlinkWallet(address);
-        console.log('data');
-        console.log(data);
-        setUnlinked(true);
-      } else if (usernameOrId) {
-        switch (type) {
-          case 'email':
-            unlinkEmail(usernameOrId);
-            break;
-          case 'phone':
-            unlinkPhone(usernameOrId);
-            break;
-          case 'google':
-            unlinkGoogle(usernameOrId);
-            break;
-          case 'twitter':
-            unlinkTwitter(usernameOrId);
-            break;
-          case 'discord':
-            unlinkDiscord(usernameOrId);
-            break;
-          default:
-            console.log(`No action for type: ${type}`);
-        }
-      }
-    }
-  }, [user, searchParams, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord]);
+    unlinkedAcct(type, usernameOrId);
+  }, [user, searchParams, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, unlinkedAcct, unlinked]);
 
   return (
     <>
