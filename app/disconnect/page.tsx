@@ -24,9 +24,9 @@ const DisconnectClient = () => {
           console.log(data);
 
           WebApp.close();
-          if (typeof window !== 'undefined') {
-            window.close();
-          }
+          // if (typeof window !== 'undefined') {
+          //   window.close();
+          // }
 
           console.log('setUnlinked');
           setUnlinked(true);
