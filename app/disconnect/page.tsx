@@ -24,6 +24,7 @@ const DisconnectClient = () => {
           console.log(data);
           setUnlinked(true);
           WebApp.close();
+          window.close();
         } else if (usernameOrId) {
           switch (type) {
             case 'email':
@@ -64,6 +65,7 @@ const DisconnectClient = () => {
 
   return (
     <>
+      {unlinked && <div>Successfully unlinked</div>}
       <div>Type: {type}</div>
       <div>Address: {address}</div>
     </>
