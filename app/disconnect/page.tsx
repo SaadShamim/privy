@@ -1,9 +1,7 @@
 'use client';
 
 import { usePrivy } from '@privy-io/react-auth';
-import { useEffect, useState } from 'react';
-// import { useRouter, useSearchParams } from 'next/navigation';
-
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 const DisconnectClient = () => {
