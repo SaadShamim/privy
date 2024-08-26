@@ -17,7 +17,7 @@ const DisconnectClient = () => {
     const address = searchParams.get('address');
     const usernameOrId = searchParams.get('usernameOrId');
 
-    if (!user) {
+    if (!user || unlinked) {
       console.log('No user');
       return;
     }
