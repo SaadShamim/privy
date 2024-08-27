@@ -33,6 +33,7 @@ export default function Home() {
   }, [linkTwitter, ready, launched, authenticated, login, loginLaunched]);
 
   const upsertUser = useCallback(async () => {
+    console.log('upserting user1');
     if (!user?.id) return;
 
     console.log('upserting user');
@@ -62,6 +63,7 @@ export default function Home() {
     if (!initialNumAccounts || !numAccounts) return;
 
     if (numAccounts > initialNumAccounts) {
+      console.log('aaa');
       setLinkSuccess(true);
     }
   }, [initialNumAccounts, numAccounts]);
@@ -69,6 +71,7 @@ export default function Home() {
   useEffect(() => {
     if (!ready || !authenticated || !user || !linkSuccess) return;
 
+    console.log('a');
     upsertUser();
   }, [linkSuccess, ready, authenticated, user, upsertUser]);
 
