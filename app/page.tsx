@@ -87,8 +87,6 @@ export default function Home() {
     linkFarcaster,
   } = usePrivy();
 
-  console.log(ready);
-
   useEffect(() => {
     if (WebApp.initDataUnsafe.user) {
       console.log(WebApp.initDataUnsafe.user);

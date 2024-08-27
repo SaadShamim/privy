@@ -12,8 +12,10 @@ const DisconnectClient = () => {
   const address = searchParams.get('address');
   const [unlinked, setUnlinked] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [launched, setLaunched] = useState(false);
+  const [loginLaunched, setLoginLaunched] = useState(false);
 
-  const { ready, authenticated, user, unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord } = usePrivy();
+  const { ready, authenticated, user, unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, login, linkWallet } = usePrivy();
 
   useEffect(() => {
     setIsClient(true); // This ensures the code runs only on the client side
@@ -87,6 +89,22 @@ const DisconnectClient = () => {
     },
     [unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, address, upsertUser, closeWindow]
   );
+
+  useEffect(() => {
+    if (!ready || launched) return;
+
+    if (!authenticated) {
+      if (!loginLaunched) {
+        login({ loginMethods: ['telegram'] });
+        setLoginLaunched(true);
+      }
+
+      return;
+    }
+
+    linkWallet();
+    setLaunched(true);
+  }, [linkWallet, ready, launched, authenticated, login, loginLaunched]);
 
   useEffect(() => {
     const type = searchParams.get('type');
