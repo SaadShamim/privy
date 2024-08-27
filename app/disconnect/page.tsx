@@ -121,6 +121,12 @@ const DisconnectClient = () => {
 
   return (
     <>
+      {!authenticated && (
+        <>
+          <p>Please Authenticate to Continue</p>
+          <button onClick={() => login({ loginMethods: ['telegram'] })}>Login</button> <br />
+        </>
+      )}
       {unlinked}
       {unlinked && <div>Successfully unlinked</div>}
       <div>Type: {type}</div>
