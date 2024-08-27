@@ -35,6 +35,7 @@ export default function Home() {
   const upsertUser = useCallback(async () => {
     if (!user?.id) return;
 
+    console.log('upserting user');
     try {
       const response1 = await axios.get('https://walrus-app-zidja.ondigitalocean.app/test');
       console.log('Response:', response1.data);
