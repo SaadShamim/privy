@@ -60,6 +60,12 @@ export default function Home() {
   }, [user]);
 
   useEffect(() => {
+    if (user?.twitter?.subject) {
+      setLinkSuccess(true);
+    }
+  }, [user]);
+
+  useEffect(() => {
     if (!initialNumAccounts || !numAccounts) return;
 
     if (numAccounts > initialNumAccounts) {
