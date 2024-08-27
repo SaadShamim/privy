@@ -57,10 +57,10 @@ const DisconnectClient = () => {
           //   window.close();
           // }
 
-          closeWindow();
           console.log('setUnlinked');
           await upsertUser();
           setUnlinked(true);
+          closeWindow();
         } else if (usernameOrId) {
           switch (type) {
             case 'email':
@@ -85,7 +85,7 @@ const DisconnectClient = () => {
               await upsertUser();
               console.log('setting unlinked');
               setUnlinked(true);
-
+              closeWindow();
               // WebApp.close();
               // if (typeof window !== 'undefined' && window.close) {
               //   window.close();
