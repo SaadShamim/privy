@@ -15,7 +15,7 @@ const DisconnectClient = () => {
   const [launched, setLaunched] = useState(false);
   const [loginLaunched, setLoginLaunched] = useState(false);
 
-  const { ready, authenticated, user, unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, login, linkWallet } = usePrivy();
+  const { ready, authenticated, user, unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, login } = usePrivy();
 
   useEffect(() => {
     setIsClient(true); // This ensures the code runs only on the client side
@@ -102,9 +102,8 @@ const DisconnectClient = () => {
       return;
     }
 
-    linkWallet();
     setLaunched(true);
-  }, [linkWallet, ready, launched, authenticated, login, loginLaunched]);
+  }, [ready, launched, authenticated, login, loginLaunched]);
 
   useEffect(() => {
     const type = searchParams.get('type');
