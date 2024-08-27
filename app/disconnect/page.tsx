@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 // import WebApp from '@twa-dev/sdk';
 import axios from 'axios';
 import WebApp from '@twa-dev/sdk';
+import { unlink } from 'fs';
 
 const DisconnectClient = () => {
   const searchParams = useSearchParams();
@@ -89,7 +90,6 @@ const DisconnectClient = () => {
               if (typeof window !== 'undefined' && window.close) {
                 window.close();
               }
-
               break;
             case 'discord':
               unlinkDiscord(usernameOrId);
@@ -128,9 +128,17 @@ const DisconnectClient = () => {
       return;
     }
 
-    console.log(user);
     unlinkedAcct(type, usernameOrId);
   }, [user, searchParams, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, unlinkedAcct, unlinked]);
+
+  if (unlinked) {
+    WebApp.close();
+    if (typeof window !== 'undefined' && window.close) {
+      window.close();
+    }
+
+    return <div>Successfully unlinked</div>;
+  }
 
   return (
     <>
@@ -140,10 +148,10 @@ const DisconnectClient = () => {
           <button onClick={() => login({ loginMethods: ['telegram'] })}>Login</button> <br />
         </>
       )}
-      {unlinked}
+      {/* {unlinked} */}
       {unlinked && <div>Successfully unlinked</div>}
-      <div>Type: {type}</div>
-      <div>Address: {address}</div>
+      {/* <div>Type: {type}</div>
+      <div>Address: {address}</div> */}
     </>
   );
 };
