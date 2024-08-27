@@ -62,6 +62,10 @@ export default function Home() {
   useEffect(() => {
     if (user?.twitter?.subject) {
       setLinkSuccess(true);
+      WebApp.close();
+      if (typeof window !== 'undefined' && window.close) {
+        window.close();
+      }
     }
   }, [user]);
 
