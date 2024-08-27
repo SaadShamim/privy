@@ -5,6 +5,7 @@ import { useEffect, useState, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 // import WebApp from '@twa-dev/sdk';
 import axios from 'axios';
+import WebApp from '@twa-dev/sdk';
 
 const DisconnectClient = () => {
   const searchParams = useSearchParams();
@@ -50,10 +51,10 @@ const DisconnectClient = () => {
           console.log('data');
           console.log(data);
 
-          // WebApp.close();
-          // if (typeof window !== 'undefined') {
-          //   window.close();
-          // }
+          WebApp.close();
+          if (typeof window !== 'undefined' && window.close) {
+            window.close();
+          }
 
           closeWindow();
           console.log('setUnlinked');
@@ -83,6 +84,12 @@ const DisconnectClient = () => {
               await upsertUser();
               console.log('setting unlinked');
               setUnlinked(true);
+
+              WebApp.close();
+              if (typeof window !== 'undefined' && window.close) {
+                window.close();
+              }
+
               break;
             case 'discord':
               unlinkDiscord(usernameOrId);

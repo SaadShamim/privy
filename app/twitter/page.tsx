@@ -85,6 +85,14 @@ export default function Home() {
     upsertUser();
   }, [linkSuccess, ready, authenticated, user, upsertUser]);
 
+  if (linkSuccess) {
+    return (
+      <main>
+        <p>Success! You have connected your Twitter account.</p>
+      </main>
+    );
+  }
+
   return (
     <main>
       {!authenticated && (
