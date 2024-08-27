@@ -23,11 +23,11 @@ const DisconnectClient = () => {
     setIsClient(true); // This ensures the code runs only on the client side
   }, []);
 
-  const closeWindow = () => {
+  const closeWindow = useCallback(() => {
     if (isClient) {
       window.close();
     }
-  };
+  }, [isClient]);
 
   const upsertUser = useCallback(async () => {
     if (!user) return;
@@ -101,7 +101,7 @@ const DisconnectClient = () => {
         }
       }
     },
-    [unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, address, upsertUser, closeWindow]
+    [unlinkEmail, unlinkWallet, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, address, upsertUser, user]
   );
 
   useEffect(() => {
