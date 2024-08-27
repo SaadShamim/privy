@@ -116,6 +116,7 @@ const DisconnectClient = () => {
       return;
     }
 
+    console.log(user);
     unlinkedAcct(type, usernameOrId);
   }, [user, searchParams, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, unlinkedAcct, unlinked]);
 
