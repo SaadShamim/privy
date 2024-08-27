@@ -146,6 +146,7 @@ const DisconnectClient = () => {
       )}
       {/* {unlinked} */}
       {unlinked && <div>Successfully unlinked</div>}
+      {!unlinked && <div>Unlinking...</div>}
       {/* <div>Type: {type}</div>
       <div>Address: {address}</div> */}
     </>
