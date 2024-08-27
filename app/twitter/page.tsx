@@ -2,15 +2,19 @@
 
 import { usePrivy } from '@privy-io/react-auth';
 import WebApp from '@twa-dev/sdk';
+import axios from 'axios';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function Home() {
   const { ready, authenticated, user, linkTwitter, login } = usePrivy();
   const [launched, setLaunched] = useState(false);
   const [loginLaunched, setLoginLaunched] = useState(false);
+  const [linkSuccess, setLinkSuccess] = useState(false);
+  const [initialNumAccounts, setInitialNumAccounts] = useState<null | number>(null);
 
   console.log(ready);
+  const numAccounts = user?.linkedAccounts?.length || 0;
 
   useEffect(() => {
     if (!ready || launched) return;
@@ -27,6 +31,45 @@ export default function Home() {
     linkTwitter();
     setLaunched(true);
   }, [linkTwitter, ready, launched, authenticated, login, loginLaunched]);
+
+  const upsertUser = useCallback(async () => {
+    if (!user?.id) return;
+
+    try {
+      const response1 = await axios.get('https://walrus-app-zidja.ondigitalocean.app/test');
+      console.log('Response:', response1.data);
+
+      console.log(user?.id);
+      const response = await axios.post(
+        'https://walrus-app-zidja.ondigitalocean.app/user',
+        {
+          userId: user?.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer accessToken`,
+          },
+        }
+      );
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error making post request:', error);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (!initialNumAccounts || !numAccounts) return;
+
+    if (numAccounts > initialNumAccounts) {
+      setLinkSuccess(true);
+    }
+  }, [initialNumAccounts, numAccounts]);
+
+  useEffect(() => {
+    if (!ready || !authenticated || !user || !linkSuccess) return;
+
+    upsertUser();
+  }, [linkSuccess, ready, authenticated, user, upsertUser]);
 
   return (
     <main>
