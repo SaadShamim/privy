@@ -52,10 +52,10 @@ const DisconnectClient = () => {
           console.log('data');
           console.log(data);
 
-          WebApp.close();
-          if (typeof window !== 'undefined' && window.close) {
-            window.close();
-          }
+          // WebApp.close();
+          // if (typeof window !== 'undefined' && window.close) {
+          //   window.close();
+          // }
 
           closeWindow();
           console.log('setUnlinked');
@@ -86,10 +86,11 @@ const DisconnectClient = () => {
               console.log('setting unlinked');
               setUnlinked(true);
 
-              WebApp.close();
-              if (typeof window !== 'undefined' && window.close) {
-                window.close();
-              }
+              // WebApp.close();
+              // if (typeof window !== 'undefined' && window.close) {
+              //   window.close();
+              // }
+
               break;
             case 'discord':
               unlinkDiscord(usernameOrId);
@@ -132,11 +133,6 @@ const DisconnectClient = () => {
   }, [user, searchParams, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, unlinkedAcct, unlinked]);
 
   if (unlinked) {
-    // WebApp.close();
-    // if (typeof window !== 'undefined' && window.close) {
-    //   window.close();
-    // }
-
     return <div>Successfully unlinked</div>;
   }
 
