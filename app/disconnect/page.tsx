@@ -132,10 +132,10 @@ const DisconnectClient = () => {
   }, [user, searchParams, unlinkWallet, unlinkEmail, unlinkPhone, unlinkGoogle, unlinkTwitter, unlinkDiscord, unlinkedAcct, unlinked]);
 
   if (unlinked) {
-    WebApp.close();
-    if (typeof window !== 'undefined' && window.close) {
-      window.close();
-    }
+    // WebApp.close();
+    // if (typeof window !== 'undefined' && window.close) {
+    //   window.close();
+    // }
 
     return <div>Successfully unlinked</div>;
   }
