@@ -69,7 +69,8 @@ const DisconnectClient = () => {
               break;
             case 'twitter':
               console.log('unlinking twitter');
-              await unlinkTwitter(usernameOrId);
+              console.log(usernameOrId);
+              await unlinkTwitter(`@${usernameOrId}`);
               console.log('upserting');
               await upsertUser();
               console.log('setting unlinked');
