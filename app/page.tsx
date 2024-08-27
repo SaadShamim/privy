@@ -114,7 +114,7 @@ export default function Home() {
       const response = await axios.post('https://walrus-app-zidja.ondigitalocean.app/user', {
         userId: user?.id,
       });
-      WebApp.close();
+      // WebApp.close();
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error making post request:', error);
@@ -125,7 +125,7 @@ export default function Home() {
     if (!ready || !authenticated) return;
 
     upsertUser();
-    //WebApp.close();
+    WebApp.close();
   }, [ready, authenticated, upsertUser]);
 
   return (
