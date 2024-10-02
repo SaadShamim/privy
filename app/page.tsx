@@ -125,7 +125,7 @@ export default function Home() {
     if (!ready || !authenticated) return;
 
     upsertUser();
-    // WebApp.close();
+    WebApp.close();
   }, [ready, authenticated, upsertUser]);
 
   return (
