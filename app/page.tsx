@@ -52,11 +52,15 @@
 'use client';
 
 import { useLogin, usePrivy } from '@privy-io/react-auth';
-import WebApp from '@twa-dev/sdk';
+// import WebApp from '@twa-dev/sdk';
 import axios from 'axios';
 import { read } from 'fs';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
+
+//@ts-ignore
+const WebApp = dynamic(() => import('@twa-dev/sdk').then((mod) => mod.WebApp), { ssr: false });
 
 interface UserData {
   id: number;
@@ -87,12 +91,12 @@ export default function Home() {
     linkFarcaster,
   } = usePrivy();
 
-  useEffect(() => {
-    if (WebApp.initDataUnsafe.user) {
-      console.log(WebApp.initDataUnsafe.user);
-      setUserData(WebApp.initDataUnsafe.user as UserData);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (WebApp.initDataUnsafe.user) {
+  //     console.log(WebApp.initDataUnsafe.user);
+  //     setUserData(WebApp.initDataUnsafe.user as UserData);
+  //   }
+  // }, []);
 
   //   const { login } = useLogin();
 
@@ -111,10 +115,15 @@ export default function Home() {
     if (!user) return;
 
     try {
-      const response = await axios.post('https://walrus-app-zidja.ondigitalocean.app/user', {
+      const response = await axios.post('https://151b-168-245-242-42.ngrok-free.app/user', {
         userId: user?.id,
       });
 
+      // import('@twa-dev/sdk').then((WebApp) => {
+      //   WebApp.default.close();
+      // });
+
+      //@ts-ignore
       WebApp.close();
       console.log('Response:', response.data);
     } catch (error) {
