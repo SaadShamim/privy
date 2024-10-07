@@ -67,7 +67,7 @@ export default function Home() {
       // });
 
       if (typeof window !== 'undefined') {
-        setTimeout(() => WebApp.close(), 1000);
+        setTimeout(() => WebApp.close(), 3000);
       }
 
       console.log('Response:', response.data);
