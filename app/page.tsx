@@ -58,7 +58,7 @@ export default function Home() {
     if (!user) return;
 
     try {
-      const response = await axios.post('https://walrus-app-zidja.ondigitalocean.app/user', {
+      const response = await axios.post('https://0da4-199-114-252-27.ngrok-free.app/user', {
         userId: user?.id,
       });
 
