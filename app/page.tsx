@@ -62,9 +62,9 @@ export default function Home() {
         userId: user?.id,
       });
 
-      import('@twa-dev/sdk').then((WebApp) => {
-        WebApp.default.close();
-      });
+      // import('@twa-dev/sdk').then((WebApp) => {
+      //   WebApp.default.close();
+      // });
 
       console.log('Response:', response.data);
     } catch (error) {
