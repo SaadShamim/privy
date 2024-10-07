@@ -1,7 +1,7 @@
 'use client';
 
 import { useLogin, usePrivy } from '@privy-io/react-auth';
-// import WebApp from '@twa-dev/sdk';
+import WebApp from '@twa-dev/sdk';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -65,6 +65,10 @@ export default function Home() {
       // import('@twa-dev/sdk').then((WebApp) => {
       //   WebApp.default.close();
       // });
+
+      if (typeof window !== 'undefined') {
+        WebApp.close();
+      }
 
       console.log('Response:', response.data);
     } catch (error) {
