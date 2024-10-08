@@ -76,7 +76,6 @@ export default function Home() {
   useEffect(() => {
     if (accessToken && user?.id) {
       const makePostRequest = async () => {
-        console.log('making server request');
         try {
           const response = await axios.post(
             'https://walrus-app-zidja.ondigitalocean.app/privy',

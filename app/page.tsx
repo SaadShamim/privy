@@ -3,7 +3,7 @@
 import { useLogin, usePrivy } from '@privy-io/react-auth';
 import WebApp from '@twa-dev/sdk';
 import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UserData {
   id: number;
@@ -14,7 +14,11 @@ interface UserData {
   is_premium?: boolean;
 }
 
+const serverUrl = 'https://0da4-199-114-252-27.ngrok-free.app/user';
+
 export default function Home() {
+  const hasUpserted = useRef(false);
+
   const [userData, setUserData] = useState<UserData | null>(null);
   const { ready, authenticated, user } = usePrivy();
   const {
@@ -34,15 +38,6 @@ export default function Home() {
     linkFarcaster,
   } = usePrivy();
 
-  // useEffect(() => {
-  //   if (WebApp.initDataUnsafe.user) {
-  //     console.log(WebApp.initDataUnsafe.user);
-  //     setUserData(WebApp.initDataUnsafe.user as UserData);
-  //   }
-  // }, []);
-
-  //   const { login } = useLogin();
-
   const numAccounts = user?.linkedAccounts?.length || 0;
   const canRemoveAccount = numAccounts > 1;
 
@@ -55,10 +50,11 @@ export default function Home() {
   const discordSubject = user?.discord?.subject || null;
 
   const upsertUser = useCallback(async () => {
-    if (!user) return;
+    if (!user || hasUpserted.current) return;
 
     try {
-      const response = await axios.post('https://0da4-199-114-252-27.ngrok-free.app/user', {
+      hasUpserted.current = true;
+      const response = await axios.post(serverUrl, {
         userId: user?.id,
       });
 
