@@ -18,13 +18,15 @@ interface UserData {
 const serverUrl = process.env.NEXT_PUBLIC_ENV === 'productions' ? 'https://walrus-app-zidja.ondigitalocean.app/user' : 'https://0da4-199-114-252-27.ngrok-free.app/user';
 
 const CookieDisplay = () => {
+  const { ready, authenticated, user, getAccessToken } = usePrivy();
+
   const [cookies, setCookies] = useState({});
 
   useEffect(() => {
     // Get all cookies as an object
     const allCookies = Cookies.get();
     setCookies(allCookies);
-  }, []);
+  }, [user]);
 
   return (
     <div>
@@ -78,10 +80,16 @@ export default function Home() {
 
     try {
       hasUpserted.current = true;
-      const response = await axios.post(serverUrl, {
-        userId: user?.id,
-        accessToken,
-      });
+      const response = await axios.post(
+        serverUrl,
+        {
+          userId: user?.id,
+          accessToken,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
       // import('@twa-dev/sdk').then((WebApp) => {
       //   WebApp.default.close();
