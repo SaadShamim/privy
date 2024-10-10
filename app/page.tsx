@@ -60,10 +60,16 @@ export default function Home() {
 
     try {
       hasUpserted.current = true;
-      const response = await axios.post(serverUrl, {
-        userId: user?.id,
-        accessToken,
-      });
+      const response = await axios.post(
+        serverUrl,
+        {
+          userId: user?.id,
+          accessToken,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
       // import('@twa-dev/sdk').then((WebApp) => {
       //   WebApp.default.close();
