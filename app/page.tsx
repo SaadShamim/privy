@@ -20,7 +20,8 @@ export default function Home() {
   const hasUpserted = useRef(false);
 
   const [userData, setUserData] = useState<UserData | null>(null);
-  const { ready, authenticated, user } = usePrivy();
+  const { ready, authenticated, user, getAccessToken } = usePrivy();
+
   const {
     logout,
     linkEmail,
@@ -52,10 +53,16 @@ export default function Home() {
   const upsertUser = useCallback(async () => {
     if (!user || hasUpserted.current) return;
 
+    const accessToken = await getAccessToken();
+    if (!accessToken) {
+      return;
+    }
+
     try {
       hasUpserted.current = true;
       const response = await axios.post(serverUrl, {
         userId: user?.id,
+        accessToken,
       });
 
       // import('@twa-dev/sdk').then((WebApp) => {
@@ -70,7 +77,7 @@ export default function Home() {
     } catch (error) {
       console.error('Error making post request:', error);
     }
-  }, [user]);
+  }, [user, getAccessToken]);
 
   useEffect(() => {
     if (!ready || !authenticated) return;
