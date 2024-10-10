@@ -70,8 +70,17 @@ export default function Home() {
   const twitterSubject = user?.twitter?.subject || null;
   const discordSubject = user?.discord?.subject || null;
 
+  const [privyIdToken, setPrivyIdToken] = useState({});
+
+  useEffect(() => {
+    // Get all cookies as an object
+    const allCookies = Cookies.get();
+    const idToken = allCookies['privy-id-token'];
+    setPrivyIdToken(idToken);
+  }, [user]);
+
   const upsertUser = useCallback(async () => {
-    if (!user || hasUpserted.current) return;
+    if (!user || hasUpserted.current || !privyIdToken) return;
 
     const accessToken = await getAccessToken();
     if (!accessToken) {
@@ -85,6 +94,7 @@ export default function Home() {
         {
           userId: user?.id,
           accessToken,
+          privyIdToken,
         },
         {
           withCredentials: true,
