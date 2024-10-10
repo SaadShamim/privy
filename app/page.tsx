@@ -88,6 +88,9 @@ export default function Home() {
         },
         {
           withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
       );
 
