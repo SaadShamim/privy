@@ -14,7 +14,7 @@ interface UserData {
   is_premium?: boolean;
 }
 
-const serverUrl = process.env.NEXT_PUBLIC_ENV === 'production' ? 'https://walrus-app-zidja.ondigitalocean.app/user' : 'https://0da4-199-114-252-27.ngrok-free.app/user';
+const serverUrl = process.env.NEXT_PUBLIC_ENV === 'productions' ? 'https://walrus-app-zidja.ondigitalocean.app/user' : 'https://0da4-199-114-252-27.ngrok-free.app/user';
 
 export default function Home() {
   const hasUpserted = useRef(false);
