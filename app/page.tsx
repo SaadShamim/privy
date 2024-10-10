@@ -87,7 +87,7 @@ export default function Home() {
           accessToken,
         },
         {
-          withCredentials: false,
+          withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
           },
