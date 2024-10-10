@@ -4,6 +4,7 @@ import { useLogin, usePrivy } from '@privy-io/react-auth';
 import WebApp from '@twa-dev/sdk';
 import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import Cookies from 'js-cookie';
 
 interface UserData {
   id: number;
@@ -15,6 +16,23 @@ interface UserData {
 }
 
 const serverUrl = process.env.NEXT_PUBLIC_ENV === 'productions' ? 'https://walrus-app-zidja.ondigitalocean.app/user' : 'https://0da4-199-114-252-27.ngrok-free.app/user';
+
+const CookieDisplay = () => {
+  const [cookies, setCookies] = useState({});
+
+  useEffect(() => {
+    // Get all cookies as an object
+    const allCookies = Cookies.get();
+    setCookies(allCookies);
+  }, []);
+
+  return (
+    <div>
+      <h1>Cookies:</h1>
+      <pre>{JSON.stringify(cookies, null, 2) || 'No cookies set'}</pre>
+    </div>
+  );
+};
 
 export default function Home() {
   const hasUpserted = useRef(false);
@@ -60,16 +78,10 @@ export default function Home() {
 
     try {
       hasUpserted.current = true;
-      const response = await axios.post(
-        serverUrl,
-        {
-          userId: user?.id,
-          accessToken,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(serverUrl, {
+        userId: user?.id,
+        accessToken,
+      });
 
       // import('@twa-dev/sdk').then((WebApp) => {
       //   WebApp.default.close();
@@ -92,5 +104,10 @@ export default function Home() {
     // WebApp.close();
   }, [ready, authenticated, upsertUser]);
 
-  return <main>Creating Account...</main>;
+  return (
+    <main>
+      Creating Account...
+      <CookieDisplay />
+    </main>
+  );
 }
