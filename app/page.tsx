@@ -15,7 +15,8 @@ interface UserData {
   is_premium?: boolean;
 }
 
-const serverUrl = process.env.NEXT_PUBLIC_ENV === 'production' ? 'https://walrus-app-zidja.ondigitalocean.app/user' : 'https://5797-50-100-63-5.ngrok-free.app/user';
+const serverUrl =
+  process.env.NEXT_PUBLIC_ENV === 'production' ? 'https://b125-2605-8d80-5c2-2adf-5de6-4c74-64d4-6b00.ngrok-free.app' : 'https://5797-50-100-63-5.ngrok-free.app/user';
 
 const CookieDisplay = () => {
   const { ready, authenticated, user, getAccessToken } = usePrivy();
