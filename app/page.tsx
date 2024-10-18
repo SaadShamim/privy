@@ -101,7 +101,7 @@ export default function Home() {
           userId: user?.id,
           accessToken,
           privyIdToken,
-          referralCode,
+          referralCode: referralCode || null,
         },
         {
           withCredentials: true,
