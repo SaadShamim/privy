@@ -43,7 +43,7 @@ const CookieDisplay = () => {
 export default function Home() {
   const hasUpserted = useRef(false);
   const searchParams = useSearchParams();
-  const referralCode = searchParams.get('referralCode') || null;
+  const referralCode = searchParams.get('referralCode');
 
   const [userData, setUserData] = useState<UserData | null>(null);
   const { ready, authenticated, user, getAccessToken } = usePrivy();
@@ -101,7 +101,7 @@ export default function Home() {
           userId: user?.id,
           accessToken,
           privyIdToken,
-          referralCode: referralCode || null,
+          referralCode,
         },
         {
           withCredentials: true,
