@@ -5,6 +5,7 @@ import WebApp from '@twa-dev/sdk';
 import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Cookies from 'js-cookie';
+import { useSearchParams } from 'next/navigation';
 
 interface UserData {
   id: number;
@@ -41,6 +42,8 @@ const CookieDisplay = () => {
 
 export default function Home() {
   const hasUpserted = useRef(false);
+  const searchParams = useSearchParams();
+  const referralCode = searchParams.get('referralCode');
 
   const [userData, setUserData] = useState<UserData | null>(null);
   const { ready, authenticated, user, getAccessToken } = usePrivy();
@@ -98,6 +101,7 @@ export default function Home() {
           userId: user?.id,
           accessToken,
           privyIdToken,
+          referralCode,
         },
         {
           withCredentials: true,
@@ -119,7 +123,7 @@ export default function Home() {
     } catch (error) {
       console.error('Error making post request:', error);
     }
-  }, [user, getAccessToken]);
+  }, [user, getAccessToken, privyIdToken, referralCode]);
 
   useEffect(() => {
     if (!ready || !authenticated) return;
