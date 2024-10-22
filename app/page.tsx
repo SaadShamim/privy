@@ -83,13 +83,16 @@ export default function Home() {
   }, [user]);
 
   const upsertUser = useCallback(async () => {
+    setServerError(`a`);
     if (!user || hasUpserted.current || !privyIdToken) return;
 
+    setServerError(`aa`);
     const accessToken = await getAccessToken();
     if (!accessToken) {
       return;
     }
 
+    setServerError(`aaa`);
     try {
       hasUpserted.current = true;
 
