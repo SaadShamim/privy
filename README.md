@@ -15,4 +15,4 @@ This is the clientside frontend for the seedclub telegram app. It is incharge of
 
 - this will trigger the /telegram-webhook endpoint on every bot message from the user
 
-### Frontend Seetup
+### Frontend Setup
