@@ -108,6 +108,8 @@ export default function Home() {
         }
       );
 
+      setServerError('success');
+
       // import('@twa-dev/sdk').then((WebApp) => {
       //   WebApp.default.close();
       // });
@@ -116,7 +118,6 @@ export default function Home() {
         setTimeout(() => WebApp.close(), 3000);
       }
 
-      setServerError(response.data);
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error making post request:', error);
@@ -133,6 +134,8 @@ export default function Home() {
 
   return (
     <main>
+      test
+      <br />
       {serverUrl}
       <br />
       {PRIVY_APP_ID}
