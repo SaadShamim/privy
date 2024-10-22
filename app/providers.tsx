@@ -1,11 +1,12 @@
 'use client';
 
 import { PrivyProvider } from '@privy-io/react-auth';
+import { PRIVY_APP_ID } from './config';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <PrivyProvider
-      appId='clzila17c07u5h432nvndhqeq'
+      appId={PRIVY_APP_ID}
       config={{
         loginMethods: ['telegram'],
         appearance: {
