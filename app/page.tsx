@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useSearchParams } from 'next/navigation';
+import { serverUrl } from '@/app/config';
 
 interface UserData {
   id: number;
@@ -15,8 +16,6 @@ interface UserData {
   language_code: string;
   is_premium?: boolean;
 }
-
-const serverUrl = process.env.NEXT_PUBLIC_ENV === 'production' ? 'https://ec25-50-100-63-5.ngrok-free.app/user' : 'https://ec25-50-100-63-5.ngrok-free.app/user';
 
 const CookieDisplay = () => {
   const { ready, authenticated, user, getAccessToken } = usePrivy();

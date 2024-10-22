@@ -6,6 +6,8 @@ import axios from 'axios';
 
 import { useCallback, useEffect, useState } from 'react';
 
+import { serverUrl } from '@/app/config';
+
 interface UserData {
   id: number;
   first_name: string;
@@ -82,12 +84,12 @@ export default function Home() {
     if (!user?.id) return;
 
     try {
-      const response1 = await axios.get('https://walrus-app-zidja.ondigitalocean.app/test');
+      const response1 = await axios.get(`${serverUrl}/test`);
       console.log('Response:', response1.data);
 
       console.log(user?.id);
       const response = await axios.post(
-        'https://walrus-app-zidja.ondigitalocean.app/user',
+        `${serverUrl}/user`,
         {
           userId: user?.id,
         },
