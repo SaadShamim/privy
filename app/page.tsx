@@ -93,7 +93,7 @@ export default function Home() {
     try {
       hasUpserted.current = true;
       const response = await axios.post(
-        serverUrl,
+        `${serverUrl}/user`,
         {
           userId: user?.id,
           accessToken,
@@ -133,6 +133,7 @@ export default function Home() {
   return (
     <main>
       {serverUrl}
+      <br />
       {serverError}
       <CookieDisplay />
     </main>
