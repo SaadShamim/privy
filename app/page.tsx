@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useSearchParams } from 'next/navigation';
-import { serverUrl } from '@/app/config';
+import { serverUrl, PRIVY_APP_ID } from '@/app/config';
 
 interface UserData {
   id: number;
@@ -133,6 +133,8 @@ export default function Home() {
   return (
     <main>
       {serverUrl}
+      <br />
+      {PRIVY_APP_ID}
       <br />
       {serverError}
       <CookieDisplay />
