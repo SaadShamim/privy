@@ -92,6 +92,8 @@ export default function Home() {
 
     try {
       hasUpserted.current = true;
+
+      setServerError(`${serverUrl}/user`);
       const response = await axios.post(
         `${serverUrl}/user`,
         {
@@ -136,7 +138,7 @@ export default function Home() {
     <main>
       test
       <br />
-      {serverUrl}
+      {`${serverUrl}/user`}
       <br />
       {PRIVY_APP_ID}
       <br />
