@@ -116,6 +116,7 @@ export default function Home() {
         setTimeout(() => WebApp.close(), 3000);
       }
 
+      setServerError(response.data);
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error making post request:', error);
