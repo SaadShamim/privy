@@ -131,7 +131,6 @@ export default function Home() {
 
   return (
     <main>
-      ths is the dev build Creating Account...
       {process.env.NEXT_PUBLIC_SERVER_URL}
       <CookieDisplay />
     </main>
