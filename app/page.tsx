@@ -43,6 +43,7 @@ export default function Home() {
 
   const [userData, setUserData] = useState<UserData | null>(null);
   const { ready, authenticated, user, getAccessToken } = usePrivy();
+  const [serverError, setServerError] = useState<string | null>(null);
 
   const {
     logout,
@@ -118,6 +119,7 @@ export default function Home() {
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error making post request:', error);
+      setServerError(error instanceof Error ? error.message : String(error));
     }
   }, [user, getAccessToken, privyIdToken, referralCode]);
 
@@ -131,6 +133,7 @@ export default function Home() {
   return (
     <main>
       {serverUrl}
+      {serverError}
       <CookieDisplay />
     </main>
   );
