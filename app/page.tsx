@@ -130,7 +130,7 @@ export default function Home() {
 
   return (
     <main>
-      {process.env.NEXT_PUBLIC_SERVER_URL}
+      {serverUrl}
       <CookieDisplay />
     </main>
   );
