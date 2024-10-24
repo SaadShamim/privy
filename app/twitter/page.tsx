@@ -47,6 +47,7 @@ export default function Home() {
         `${serverUrl}/user`,
         {
           userId: user?.id,
+          connectType: 'twitter',
         },
         {
           headers: {

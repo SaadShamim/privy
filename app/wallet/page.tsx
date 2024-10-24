@@ -84,8 +84,6 @@ export default function Home() {
     if (!user?.id) return;
 
     try {
-      const response1 = await axios.get(`${serverUrl}/test`);
-
       const response = await axios.post(
         `${serverUrl}/user`,
         {
