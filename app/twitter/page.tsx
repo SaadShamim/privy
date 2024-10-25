@@ -14,7 +14,6 @@ export default function Home() {
   const [linkSuccess, setLinkSuccess] = useState(false);
   const [initialNumAccounts, setInitialNumAccounts] = useState<null | number>(null);
 
-  console.log(ready);
   const numAccounts = user?.linkedAccounts?.length || 0;
 
   useEffect(() => {
@@ -34,15 +33,9 @@ export default function Home() {
   }, [linkTwitter, ready, launched, authenticated, login, loginLaunched]);
 
   const upsertUser = useCallback(async () => {
-    console.log('upserting user1');
     if (!user?.id) return;
 
-    console.log('upserting user');
     try {
-      const response1 = await axios.get(`${serverUrl}/test`);
-      console.log('Response:', response1.data);
-
-      console.log(user?.id);
       const response = await axios.post(
         `${serverUrl}/user`,
         {
@@ -55,7 +48,6 @@ export default function Home() {
           },
         }
       );
-      console.log('Response:', response.data);
     } catch (error) {
       console.error('Error making post request:', error);
     }
@@ -75,7 +67,6 @@ export default function Home() {
     if (!initialNumAccounts || !numAccounts) return;
 
     if (numAccounts > initialNumAccounts) {
-      console.log('aaa');
       setLinkSuccess(true);
     }
   }, [initialNumAccounts, numAccounts]);
@@ -83,7 +74,6 @@ export default function Home() {
   useEffect(() => {
     if (!ready || !authenticated || !user || !linkSuccess) return;
 
-    console.log('a');
     upsertUser();
   }, [linkSuccess, ready, authenticated, user, upsertUser]);
 
