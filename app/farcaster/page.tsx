@@ -3,14 +3,17 @@
 import { usePrivy } from '@privy-io/react-auth';
 import WebApp from '@twa-dev/sdk';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { serverUrl } from '@/app/config';
+import axios from 'axios';
 
 export default function Home() {
   const { ready, authenticated, user, linkFarcaster, login } = usePrivy();
   const [launched, setLaunched] = useState(false);
   const [loginLaunched, setLoginLaunched] = useState(false);
-
-  console.log(ready);
+  const [linkSuccess, setLinkSuccess] = useState(false);
+  const [initialNumAccounts, setInitialNumAccounts] = useState<null | number>(null);
+  const numAccounts = user?.linkedAccounts?.length || 0;
 
   useEffect(() => {
     if (!ready || launched) return;
@@ -27,6 +30,59 @@ export default function Home() {
     linkFarcaster();
     setLaunched(true);
   }, [linkFarcaster, ready, launched, authenticated, login, loginLaunched]);
+
+  const upsertUser = useCallback(async () => {
+    if (!user?.id) return;
+
+    try {
+      const response = await axios.post(
+        `${serverUrl}/user`,
+        {
+          userId: user?.id,
+          connectType: 'farcaster',
+        },
+        {
+          headers: {
+            Authorization: `Bearer accessToken`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error('Error making post request:', error);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user?.farcaster?.ownerAddress) {
+      setLinkSuccess(true);
+      WebApp.close();
+      if (typeof window !== 'undefined' && window.close) {
+        window.close();
+      }
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (!initialNumAccounts || !numAccounts) return;
+
+    if (numAccounts > initialNumAccounts) {
+      setLinkSuccess(true);
+    }
+  }, [initialNumAccounts, numAccounts]);
+
+  useEffect(() => {
+    if (!ready || !authenticated || !user || !linkSuccess) return;
+
+    upsertUser();
+  }, [linkSuccess, ready, authenticated, user, upsertUser]);
+
+  if (linkSuccess) {
+    return (
+      <main>
+        <p>Success! You have connected your farcaster account.</p>
+      </main>
+    );
+  }
 
   return (
     <main>

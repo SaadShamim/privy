@@ -84,14 +84,11 @@ export default function Home() {
     if (!user?.id) return;
 
     try {
-      const response1 = await axios.get(`${serverUrl}/test`);
-      console.log('Response:', response1.data);
-
-      console.log(user?.id);
       const response = await axios.post(
         `${serverUrl}/user`,
         {
           userId: user?.id,
+          connectType: 'wallet',
         },
         {
           headers: {

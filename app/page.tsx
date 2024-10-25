@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useSearchParams } from 'next/navigation';
-import { serverUrl } from '@/app/config';
+import { serverUrl, PRIVY_APP_ID } from '@/app/config';
 
 interface UserData {
   id: number;
@@ -83,15 +83,20 @@ export default function Home() {
   }, [user]);
 
   const upsertUser = useCallback(async () => {
+    setServerError(`a`);
     if (!user || hasUpserted.current || !privyIdToken) return;
 
+    setServerError(`aa`);
     const accessToken = await getAccessToken();
     if (!accessToken) {
       return;
     }
 
+    setServerError(`aaa`);
     try {
       hasUpserted.current = true;
+
+      setServerError(`${serverUrl}/user`);
       const response = await axios.post(
         `${serverUrl}/user`,
         {
@@ -107,6 +112,8 @@ export default function Home() {
           },
         }
       );
+
+      setServerError('success');
 
       // import('@twa-dev/sdk').then((WebApp) => {
       //   WebApp.default.close();
@@ -132,7 +139,11 @@ export default function Home() {
 
   return (
     <main>
-      {serverUrl}
+      test
+      <br />
+      {`${serverUrl}/user`}
+      <br />
+      {PRIVY_APP_ID}
       <br />
       {serverError}
       <CookieDisplay />
